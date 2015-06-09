@@ -1,0 +1,11 @@
+ToDo:
+
+## Em pollutantmean.R
+
+1. adicionar tratamento de datasets removendo valores NA antes de utilizá-los.
+2. verificar funcionamento de loop para ids
+3. verificar processo de 'return'
+
+## Para o Projeto
+
+1. verificar o script de submit da página do curso
