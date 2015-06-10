@@ -1,16 +1,13 @@
-directory <- 'specdata'
-pollutant <- 'nitrate'
-id <- 1:10
 
-'''   EXEMPLO
-source("pollutantmean.R")
-pollutantmean("specdata", "sulfate", 1:10)
+###   EXEMPLO
+### source("pollutantmean.R")
+### pollutantmean("specdata", "sulfate", 1:10)
 ## [1] 4.064
-pollutantmean("specdata", "nitrate", 70:72)
+### pollutantmean("specdata", "nitrate", 70:72)
 ## [1] 1.706
-pollutantmean("specdata", "nitrate", 23)
+### pollutantmean("specdata", "nitrate", 23)
 ## [1] 1.281  
-'''
+
    
 ## Part 1 
 pollutantmean <- function(directory, pollutant, id = 1:332) {
@@ -24,39 +21,39 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
    ## Return the mean of the pollutant across all monitors list
    ## in the 'id' vector (ignoring NA values)
    ## NOTE: Do not round the result!
-   ## Verifica existencia do diretório 'specdata'
+   
+	
+	## Verifica existencia do diretório 'specdata'
+	
    if (length(directory) == 1 || class(directory) == "character") {
       
       if(file.exists(directory) == TRUE) {
          
-         print("'directory' specdata encontrado")
          ## Verifica se o valor de 'pollutant' é sulfate ou nitrate
          
          if(pollutant == "sulfate" || pollutant == "nitrate"){
             
-            print("'pollutant' informado corretamente")
-            
-            ###  ----------- manutenção da primeira parte inicia aqui
-            
-            ###  ----- tratar os datasets removendo os NA
-            
-            pollutant_mean <- c()
-            
+				pollutant_mean <- c()
+         	
             for(i in id) {
-            
-               id <- 2
-               current_file <- read.csv(paste0("./",directory,"/",(formatC(id, width = 3, flag = "0")),".csv"), header=T, sep=",");head(current_file)
-               
-               ###  teste utilizando 'nitrate'
-               na_removed <- current_file[!is.na(current_file[, "nitrate"]), "nitrate"]
-               ###  teste utilizando 'nitrate'
-               
-               pollutant_mean <- c(pollutant_mean, na_removed);pollutant_mean
-            }
-            
-            result <- mean(pollutant_mean)
 
-            ###  ----------- manutenção da primeira parte finaliza aqui
+            	## lê os arquivos, formatando o id para um numeral de tres caracteres
+            	
+            	current_file <- read.csv(paste0("./",directory,"/",(formatC(i, width = 3, flag = "0")),".csv"), header=T, sep=",");head(current_file)
+            	
+            	## remove os valores NA
+            	
+            	na_removed <- current_file[!is.na(current_file[, pollutant]), pollutant]
+            	
+            	## adiciona ao dataset do id anterior o dataset com os valores deste id
+            	
+            	pollutant_mean <- c(pollutant_mean, na_removed)
+            	
+            	## aplica mean ao dataset final
+
+            	result <- mean(pollutant_mean)
+            	
+            	}
             
          } else {
             
@@ -72,6 +69,8 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
       
       print("'directory' informado de forma errada.")
    }
+   
+   ## informa o resultado
    
    return(round(result, 3))
 }
