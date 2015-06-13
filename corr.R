@@ -36,4 +36,53 @@ corr <- function(directory, threshold = 0) {
 	
 	## Return a numeric vector of correlations
 	## NOTE: Do not round the result!
+	if (length(directory) == 1 || class(directory) == "character") {
+		
+		if(file.exists(directory) == TRUE) {
+			
+			## Lista os arquivos dentro do diretorio
+			
+			files <- dir(directory)
+			
+			## inicia variavel
+			
+			result <- c()
+			
+			## loop listando os arquivos
+			
+			for(i in files) {
+				
+				## lê os arquivos, formatando o id para um numeral de tres caracteres
+				
+				current_file <- read.csv(paste0("./",directory,"/",(formatC(i, width = 3, flag = "0"))), header=T, sep=",")
+				
+				## remove os valores NA
+				
+				clean_data <- na.omit(current_file)
+				
+				## verifica threshold
+				
+				if (nrow(clean_data) > threshold ) {
+					
+					result <- c(result,cor(clean_data$sulfate,clean_data$nitrate))
+					
+				}
+				
+			}
+			
+		} else {
+			
+			print("'directory' specdata não encontrado")
+		}
+	}
+	
+	else {
+		
+		print("'directory' informado de forma errada.")
+	}
+	
+	## informa o resultado
+	
+	return(result)
+	
 }

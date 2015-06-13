@@ -21,8 +21,6 @@
 ##   id nobs
 ## 1  3  243
 
-
-
 complete <- function(directory, id = 1:332) {
 	## 'directory' is a character vector of length 1 indicating
 	## the location of the CSV files
@@ -41,9 +39,11 @@ complete <- function(directory, id = 1:332) {
 		
 		if(file.exists(directory) == TRUE) {
 			
-			## Verifica se o valor de 'pollutant' é sulfate ou nitrate
+			## inicia variavel
 			
 			result <- c()	
+			
+			## loop para ler todos os arquivos dos ids correspondentes ao informado
 			
 			for(i in id) {
 				
@@ -53,7 +53,7 @@ complete <- function(directory, id = 1:332) {
 				
 				## remove os valores NA
 				
-				result <- data.frame(rbind(result, c(i,(sum(complete.cases(current_file))))))
+				result <- data.frame(rbind(result,c(i,(sum(complete.cases(current_file))))))
 				
 			}
 			
@@ -67,9 +67,11 @@ complete <- function(directory, id = 1:332) {
 		print("'directory' informado de forma errada.")
 	}
 	
-	## informa o resultado
-	
+	## adiciona rotulos às colunas de result
+		
 	names(result) <- c("id", "nobs")
+	
+	## informa o resultado
 	
 	return(result)
 }

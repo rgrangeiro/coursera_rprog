@@ -33,8 +33,12 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
          
          if(pollutant == "sulfate" || pollutant == "nitrate"){
             
+         	## inicia variavel
+         	
 				pollutant_mean <- c()
          	
+				## loop para ler todos os arquivos dos ids correspondentes ao informado
+				
             for(i in id) {
 
             	## lê os arquivos, formatando o id para um numeral de tres caracteres
