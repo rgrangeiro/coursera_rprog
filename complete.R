@@ -37,4 +37,39 @@ complete <- function(directory, id = 1:332) {
 	## ...
 	## where 'id' is the monitor ID number and 'nobs' is the
 	## number of complete cases
+	if (length(directory) == 1 || class(directory) == "character") {
+		
+		if(file.exists(directory) == TRUE) {
+			
+			## Verifica se o valor de 'pollutant' é sulfate ou nitrate
+			
+			result <- c()	
+			
+			for(i in id) {
+				
+				## lê os arquivos, formatando o id para um numeral de tres caracteres
+				
+				current_file <- read.csv(paste0("./",directory,"/",(formatC(i, width = 3, flag = "0")),".csv"), header=T, sep=",")
+				
+				## remove os valores NA
+				
+				result <- data.frame(rbind(result, c(i,(sum(complete.cases(current_file))))))
+				
+			}
+			
+		} else {
+			
+			print("'directory' specdata não encontrado")
+		}
+	}
+	else {
+		
+		print("'directory' informado de forma errada.")
+	}
+	
+	## informa o resultado
+	
+	names(result) <- c("id", "nobs")
+	
+	return(result)
 }

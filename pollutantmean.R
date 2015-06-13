@@ -39,7 +39,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
 
             	## lê os arquivos, formatando o id para um numeral de tres caracteres
             	
-            	current_file <- read.csv(paste0("./",directory,"/",(formatC(i, width = 3, flag = "0")),".csv"), header=T, sep=",");head(current_file)
+            	current_file <- read.csv(paste0("./",directory,"/",(formatC(i, width = 3, flag = "0")),".csv"), header=T, sep=",")
             	
             	## remove os valores NA
             	
