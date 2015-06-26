@@ -45,52 +45,52 @@ best <- function(state, outcome) {
 	## Check that state and outcome are valid
 	ifelse(state %in% valid_states, flag_state <- "ok", flag_state <- "nok")
 	ifelse(outcome %in% valid_outcome, flag_outcome <- "ok", flag_outcome <- "nok")
-
-if (flag_state == "ok" ) {
 	
-	if (flag_outcome == "ok" ) {
+	if (flag_state == "ok" ) {
 		
-		
-		if ( outcome == "heart attack" ) {
+		if (flag_outcome == "ok" ) {
 			
-			## check best hospital - heart attack
-			## print("h-att")
-			dt_state <- dt_heart.attack[which(dt_heart.attack$State == state),]
-			result <- dt_state[which.min(dt_state$Rates.Heart_Attack),]
-			print(result[,1])
 			
-		} else {
-			
-			if ( outcome == "heart failure") {
+			if ( outcome == "heart attack" ) {
 				
-				## check best hospital - heart failure
-				## print("h-fai")
-				dt_state <- dt_heart.failure[which(dt_heart.failure$State == state),]
-				result <- dt_state[which.min(dt_state$Rates.Heart_Failure),]
+				## check best hospital - heart attack
+				## print("h-att")
+				dt_state <- dt_heart.attack[which(dt_heart.attack$State == state),]
+				result <- dt_state[which.min(dt_state$Rates.Heart_Attack),]
 				print(result[,1])
-				
 				
 			} else {
 				
-				if ( outcome == "pneumonia") {
+				if ( outcome == "heart failure") {
 					
-					## check best hospital - heart pneumonia
-					## print("pneu")
-					dt_state <- dt_pneumonia[which(dt_pneumonia$State == state),]
-					result <- dt_state[which.min(dt_state$Rates.Pneumonia),]
+					## check best hospital - heart failure
+					## print("h-fai")
+					dt_state <- dt_heart.failure[which(dt_heart.failure$State == state),]
+					result <- dt_state[which.min(dt_state$Rates.Heart_Failure),]
 					print(result[,1])
+					
+					
+				} else {
+					
+					if ( outcome == "pneumonia") {
+						
+						## check best hospital - heart pneumonia
+						## print("pneu")
+						dt_state <- dt_pneumonia[which(dt_pneumonia$State == state),]
+						result <- dt_state[which.min(dt_state$Rates.Pneumonia),]
+						print(result[,1])
+					}
 				}
 			}
+			
+		} else {
+			
+			stop('invalid outcome') 
+			
 		}
 		
 	} else {
 		
-		stop('invalid outcome') 
-		
+		stop('invalid state') 
 	}
-	
-} else {
-	
-	stop('invalid state') 
-}
 }
