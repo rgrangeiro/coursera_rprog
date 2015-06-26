@@ -58,7 +58,7 @@ best <- function(state, outcome) {
 				dt_state <- dt_heart.attack[which(dt_heart.attack$State == state),]
 				sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Heart_Attack),dt_state$Hospital.Name),]
 				
-				if(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] == 1) {
+				if(!is.na(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] != 1)) {
 					
 					sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
 					result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
@@ -80,7 +80,7 @@ best <- function(state, outcome) {
 					dt_state <- dt_heart.failure[which(dt_heart.failure$State == state),]
 					sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Heart_Failure),dt_state$Hospital.Name),]
 					
-					if(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] == 1) {
+					if(!is.na(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] != "1")) {
 						
 						sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
 						result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
@@ -92,8 +92,7 @@ best <- function(state, outcome) {
 						print(result)
 						
 					}
-					
-					
+										
 				} else {
 					
 					if ( outcome == "pneumonia") {
@@ -103,7 +102,7 @@ best <- function(state, outcome) {
 						dt_state <- dt_pneumonia[which(dt_pneumonia$State == state),]
 						sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Pneumonia),dt_state$Hospital.Name),]
 						
-						if(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] == 1) {
+						if(!is.na(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] != "1")) {
 							
 							sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
 							result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
