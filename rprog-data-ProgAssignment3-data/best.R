@@ -56,8 +56,20 @@ best <- function(state, outcome) {
 				## check best hospital - heart attack
 				## print("h-att")
 				dt_state <- dt_heart.attack[which(dt_heart.attack$State == state),]
-				result <- dt_state[which.min(dt_state$Rates.Heart_Attack),]
-				print(result[,1])
+				sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Heart_Attack),dt_state$Hospital.Name),]
+				
+				if(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] == 1) {
+					
+					sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
+					result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
+					print(result[1,1])
+					
+				} else {
+					
+					result <- sort_dt_state[1,1]
+					print(result)
+					
+				}
 				
 			} else {
 				
@@ -66,8 +78,20 @@ best <- function(state, outcome) {
 					## check best hospital - heart failure
 					## print("h-fai")
 					dt_state <- dt_heart.failure[which(dt_heart.failure$State == state),]
-					result <- dt_state[which.min(dt_state$Rates.Heart_Failure),]
-					print(result[,1])
+					sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Heart_Failure),dt_state$Hospital.Name),]
+					
+					if(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] == 1) {
+						
+						sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
+						result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
+						print(result[1,1])
+						
+					} else {
+						
+						result <- sort_dt_state[1,1]
+						print(result)
+						
+					}
 					
 					
 				} else {
@@ -77,8 +101,20 @@ best <- function(state, outcome) {
 						## check best hospital - heart pneumonia
 						## print("pneu")
 						dt_state <- dt_pneumonia[which(dt_pneumonia$State == state),]
-						result <- dt_state[which.min(dt_state$Rates.Pneumonia),]
-						print(result[,1])
+						sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Pneumonia),dt_state$Hospital.Name),]
+						
+						if(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] == 1) {
+							
+							sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
+							result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
+							print(result[1,1])
+							
+						} else {
+							
+							result <- sort_dt_state[1,1]
+							print(result)
+							
+						}
 					}
 				}
 			}
@@ -92,5 +128,7 @@ best <- function(state, outcome) {
 	} else {
 		
 		stop('invalid state') 
+		
 	}
+	
 }
