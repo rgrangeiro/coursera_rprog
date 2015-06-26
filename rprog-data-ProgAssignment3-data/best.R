@@ -54,14 +54,24 @@ best <- function(state, outcome) {
 			if ( outcome == "heart attack" ) {
 				
 				## check best hospital - heart attack
-				## print("h-att")
+				## Obtem apenas o state solicitado
 				dt_state <- dt_heart.attack[which(dt_heart.attack$State == state),]
+				
+				## Ordena por Rate e pelo Hospital.Name
 				sort_dt_state <- dt_state[order(as.numeric(dt_state$Rates.Heart_Attack),dt_state$Hospital.Name),]
 				
+				## Verifica se:
+				## 1. Os dois primeiros valores de Rate são iguais
+				## 2. Verifica se não há apenas um hospital na listagem
 				if(!is.na(sort_dt_state[1,3]==sort_dt_state[2,3] || dim(dt_state)[1] != 1)) {
 					
+					## Cria um data set com os dois primeiros rows
 					sort_hosp <- rbind(sort_dt_state[1,c(1,3)],sort_dt_state[2,c(1,3)])
+					
+					## Ordena pelo nome do hospital
 					result <- na.omit(sort_hosp[order(sort_hosp$Hospital.Name),])
+					
+					## Entrega o resultado
 					print(result[1,1])
 					
 				} else {
